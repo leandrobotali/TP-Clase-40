@@ -11,16 +11,16 @@ class MyMongoClient {
 
     async connect() {
         try {
-            await this.client.connect(process.env.MONGO_URI_STORE_SESSIONS, {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-                useFindAndModify: false,
-                useCreateIndex: true
-            })
-            logger.info('database is connected')
-            this.connected = true
+            if(this.connected == false){
+                await this.client.connect(process.env.MONGO_URI_STORE_SESSIONS, {
+                    useNewUrlParser: true,
+                    useUnifiedTopology: true,
+                })
+                this.connected = true
+                logger.info('database is connected')
+            }
         } catch (error) {
-            logger.error(err)
+            logger.error(error)
             process.exit(1)
         }
     }
@@ -31,7 +31,7 @@ class MyMongoClient {
             logger.info('base de datos desconectada')
             this.connected = false
         } catch (error) {
-            logger.error(err)
+            logger.error(error)
             process.exit(1)
         }
     }

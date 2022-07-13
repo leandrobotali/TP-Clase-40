@@ -1,24 +1,25 @@
-import {userModel} from "../models/Models.js";
+import DaoUser from '../daos/DaosAuth.js';
 import {adminConf} from '../config/config.js'
+import logger from './logger.js'
 
 export const createAdminUser = async () => {
-  const userFound = await userModel.findOne({email: adminConf.email});
+  const UserInstance = DaoUser.getInstance()
+  const userFound = await UserInstance.find(adminConf.email)
 
   if (userFound) return;
 
-  const newUser = new userModel({
+  const newUser = {
     email: adminConf.email,
     name: adminConf.name,
+    password: adminConf.password,
     direccion: adminConf.direccion,
     edad: adminConf.edad,
     nroTel: adminConf.nroTel,
     img: adminConf.img,
     rol: adminConf.rol
-});
+};
 
-  newUser.password = await newUser.encryptPassword(adminConf.password);
+  await UserInstance.save(newUser)
 
-  const admin = await newUser.save();
-
-  console.log("Admin user created", admin);
+  logger.info("Admin user created");
 };

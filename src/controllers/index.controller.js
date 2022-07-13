@@ -3,6 +3,5 @@ export const renderIndex = (req, res) => {
 };
 
 export const forWsp = (req, res) => {
-  console.log(req.body);
   res.end();
 };

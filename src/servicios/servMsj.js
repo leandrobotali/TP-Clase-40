@@ -1,8 +1,9 @@
 import DaoMsjs from '../daos/DaosMsjs.js'
 
+const msjInstance = DaoMsjs.getInstance()
+
 export const createMsj = async (req) => {
     try {
-        const msjInstance = DaoMsjs.getInstance()
         let text = {text:req.body.mensaje}
         const mensaje = await msjInstance.saveText(text)
         let msj = {fecha: Date.now(), idMensaje: mensaje._id, autor: req.user.email}
@@ -15,7 +16,6 @@ export const createMsj = async (req) => {
 
 export const getAllMsj = async () => {
     try {
-        const msjInstance = DaoMsjs.getInstance()
         return await msjInstance.getAll();    
     } catch (error) {
         return error

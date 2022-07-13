@@ -1,7 +1,9 @@
-import users from '../daos/DaosAuth.js';
+import DaoUser from '../daos/DaosAuth.js';
 import logger from '../helpers/logger.js'
 import { adminConf } from "../config/config.js";
 import transporter from '../helpers/transportMail.js'
+
+const UserInstance = DaoUser.getInstance()
 
 export const registro = async (req) => {
     try {
@@ -14,7 +16,7 @@ export const registro = async (req) => {
       if (!cod_area) errors.push({ text: "Falta el codigo de ciudad." })
       if (!nro_tel) errors.push({ text: "Falta el numero de telefono." })
       
-      const userFound = await users.find(email);
+      const userFound = await UserInstance.find(email);
       if (userFound) errors.push({ text: "El email ya esta en uso." })
       if (errors.length > 0) return errors
 
@@ -22,7 +24,7 @@ export const registro = async (req) => {
 
       let userNew = { name: name, email: email, password: password, direccion: direccion, edad: edad, nroTel: nroTel}
 
-      await users.save(userNew)
+      await UserInstance.save(userNew)
   
       const mailOption = {
         from:'Servidor Node js',
@@ -31,7 +33,7 @@ export const registro = async (req) => {
         text: 'nuevo usuario:\n nombre: ' + name + '\n email: ' + email + '\n direccion: ' + direccion + '\n edad: ' + edad + '\n numero de telefono: ' + nroTel,
       }
   
-      const info = await transporter.sendMail(mailOption)
+      await transporter.sendMail(mailOption)
   
       return true   
     } catch (error) {
@@ -46,8 +48,8 @@ export const registro = async (req) => {
         return false        
       }
       try {
-        await users.updateImg(req)
-        return await users.findById(req.user.id)
+        await UserInstance.updateImg(req)
+        return await UserInstance.findById(req.user._id)
       } catch (error) {
         logger.error(error)
         return error

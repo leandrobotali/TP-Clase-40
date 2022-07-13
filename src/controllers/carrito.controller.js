@@ -3,7 +3,7 @@ import {Carrito, Comprar, agregarProd, deleteProd} from '../servicios/servCarrit
 
 export const getCarrito = async (req, res, next) => {
     try {
-        const Carritos = await Carrito(req.user.id)
+        const Carritos = await Carrito(req.user._id)
         res.render("Carrito/get-carrito", { Carrito: Carritos});
     } catch (error) {
         logger.error(error)

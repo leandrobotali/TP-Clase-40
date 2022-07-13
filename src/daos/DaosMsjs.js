@@ -1,12 +1,11 @@
-import {mensajeModel,mensajesModel} from '../models/Models.js'
+import {mensajeModel,mensajesModel} from '../models/ModelMsjs.js'
 import mongoClass from '../db/mongoClass.js';
 
 let instance = null;
 
-class DaoMsjs extends mongoClass {
-
+class DaoMsjs{
     constructor() {
-        super()
+        this.client = mongoClass.getInstance()
     }
 
     async getAll(){

@@ -1,5 +1,7 @@
-import producto from "../daos/DaosProductos.js";
+import DaoProducto from "../daos/DaosProductos.js";
 import logger from '../helpers/logger.js'
+
+const ProdInstance = DaoProducto.getInstance()
 
 export const createProducto = async (req) => {
     const { nombre, descripcion, codigo, foto, precio, stock } = req.body;
@@ -13,7 +15,7 @@ export const createProducto = async (req) => {
     if (errors.length > 0) return errors
     try {
         let newProducto = {nombre: nombre, descripcion: descripcion, codigo: codigo, foto: foto, precio: precio, stock: stock }
-        await producto.save(newProducto);
+        await ProdInstance.save(newProducto);
         return true
     } catch (error) {
         logger.error(error)
@@ -22,11 +24,11 @@ export const createProducto = async (req) => {
 };
 
 export const getAll = async () => {
-    return await producto.getAll();
+    return await ProdInstance.getAll();
 }
 
 export const getById = async (id) => {
-    return await producto.getById(id);
+    return await ProdInstance.findById(id);
 }
 
 export const updateProd = async (req) => {
@@ -40,7 +42,7 @@ export const updateProd = async (req) => {
     if (!stock) { errors.push({ text: "Falta el stock del Producto." }) }
     if (errors.length > 0) return errors
     try {
-        await producto.updateById(req);
+        await ProdInstance.update(req);
         return true
     } catch (error) {
         logger.error(error)
@@ -49,5 +51,5 @@ export const updateProd = async (req) => {
 };
 
 export const deleteProd = async (id) => {
-    return await producto.deleteById(id);
+    return await ProdInstance.delete(id);
 }

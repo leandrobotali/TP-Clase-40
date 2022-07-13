@@ -1,7 +1,9 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 
-import {userModel} from "../models/Models.js";
+import DaoUser from '../daos/DaosAuth.js';
+
+const UserInstance = DaoUser.getInstance()
 
 passport.use(
   new LocalStrategy(
@@ -10,15 +12,12 @@ passport.use(
     },
     async (email, password, done) => {
       // Match Email's User
-      const user = await userModel.findOne({ email: email });
-
+      const user = await UserInstance.find(email);
       if (!user) {
         return done(null, false, { message: "no existe el Usuario." });
       }
-
       // Match Password's User
-      const isMatch = await user.matchPassword(password);
-      console.log(isMatch);
+      const isMatch = await UserInstance.comparePassword(user,password);
       if (!isMatch)
         return done(null, false, { message: "Password incorrecta." });
       
@@ -28,11 +27,9 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user);
 });
 
-passport.deserializeUser((id, done) => {
-  userModel.findById(id, (err, user) => {
-    done(err, user);
-  });
+passport.deserializeUser((user, done) => {
+  done(null, user);
 });

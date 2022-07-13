@@ -18,5 +18,5 @@ export const twilioConf = {
     nroSms: "+19897621537",
     nroSandbox: "+14155238886",
     SSID: "ACb3ab228ab827efa9e7a52a869b9642dd",
-    token:"70b6ccb6b7e928743bfbd001fb7735cb"
+    token:"43e25a97915f4cfe9194edc558442df1"
 }

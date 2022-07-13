@@ -342,3 +342,17 @@
 [2022-07-06T02:02:59.459] [ERROR] default - ReferenceError: prod is not defined
     at singup (file:///C:/Work%20Space/Tercera%20entrega%20de%20project/src/controllers/auth.controllers.js:15:20)
     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2022-07-13T09:29:34.889] [ERROR] default - TypeError: Cannot read properties of null (reading 'email')
+    at uploadImg (file:///C:/Work%20Space/TP%20Clase%2040/src/controllers/auth.controllers.js:40:46)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2022-07-13T09:39:44.830] [ERROR] default - ReferenceError: error is not defined
+    at DaoCarrito.find (file:///C:/Work%20Space/TP%20Clase%2040/src/daos/DaosCarritos.js:18:13)
+    at agregarProd (file:///C:/Work%20Space/TP%20Clase%2040/src/servicios/servCarrito.js:29:39)
+    at agregarProdaCarr (file:///C:/Work%20Space/TP%20Clase%2040/src/controllers/carrito.controller.js:28:15)
+    at Layer.handle [as handle_request] (C:\Work Space\TP Clase 40\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Work Space\TP Clase 40\node_modules\express\lib\router\route.js:144:13)
+    at isAuthenticated (file:///C:/Work%20Space/TP%20Clase%2040/src/middelwares/auth.js:3:12)
+    at Layer.handle [as handle_request] (C:\Work Space\TP Clase 40\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Work Space\TP Clase 40\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Work Space\TP Clase 40\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Work Space\TP Clase 40\node_modules\express\lib\router\layer.js:95:5)
